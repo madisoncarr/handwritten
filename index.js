@@ -17,7 +17,7 @@ const net = new brain.NeuralNetwork({
 
 // const trainingData = [...sixTesting, ...oneTesting];
 
-const set = mnist.set(800, 200);
+const set = mnist.set(200, 200);
 const trainingSet = set.training;
 const testSet = set.test;
 
@@ -39,9 +39,24 @@ net.train(trainingSet);
 // console.log('testing for 1: ', net.run(mnist[1].get(2)));
 // console.log('answer for 1: ', mnist[1].set(0, 1)[0].output);
 
-for (let i = 0; i < 50; i++) {
-  console.log(`testing for ${testSet[i].output}: `, net.run(testSet[i].input));
+const toNumber = arr => {
+  let maxIndex = arr.indexOf(Math.max(...arr));
+  return maxIndex;
+};
+
+for (let i = 0; i < 30; i++) {
+  console.log(
+    `testing for ${toNumber(testSet[i].output)}: `,
+    toNumber(net.run(testSet[i].input))
+  );
 }
 
 // console.log(mnist[1].length); //1127
 // console.log(mnist[0].length); //1001
+
+// const digit = mnist[1].get();
+// var context = document.getElementById('myCanvas').getContext('2d');
+
+// mnist.draw(digit, context); // draws a '1' mnist digit in the canvas
+
+// console.log('Got to the end here');
